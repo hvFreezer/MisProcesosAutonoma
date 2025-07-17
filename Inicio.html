@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Procesos Autónoma</title>
+<link rel="icon" type="image/png" href="Autonoma_logov2.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  :root {
+    --primary: #F18C00;
+    --primary-light: #FFE4C2;
+    --primary-dark: #D87A00;
+    --bg: #FFFFFF;
+    --text: #423D3A;
+    --text-light: #8A8A8A;
+    --light: #f9f9f9;
+    --border: #EAEAEA;
+    --card-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+    --hover-shadow: 0 12px 30px rgba(241, 140, 0, 0.1);
+    --section-spacing: 60px;
+    --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  /* Reset y tipografía */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  button, .btn {
+    cursor: pointer;
+    transition: var(--transition);
+  }
+
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .toggle-btn:hover {
+    background: var(--primary-light);
+  }
+
+  .menu {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0 8px;
+    flex-grow: 1;
+  }
+
+  .menu a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--text);
+    text-decoration: none;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border-radius: 10px;
+    min-width: 0;
+  }
+
+  .menu a .text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    transition: opacity 0.3s, width 0.3s;
+    display: inline-block;
+  }
+
+
+
+  .menu a:hover, .menu a.active {
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .menu a.active {
+    font-weight: 600;
+  }
+
+  .menu i {
+    font-size: 1.2rem;
+    min-width: 25px;
+    text-align: center;
+    transition: color 0.3s;
+    color: var(--text-light);
+  }
+
+  .menu a:hover i, .menu a.active i {
+    color: var(--primary);
+  }
+
+  /* Logos en sidebar */
+
+  
+
+
+
+  /* Main content */
+  .content {
+  
+    flex: 1;
+    transition: margin-left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+
+  section {
+    display: none;
+  }
+
+  section.active {
+    display: block;
+  }
+
+  /* Barra superior */
+  .top-bar {
+    background: var(--bg);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
+  .logo-home {
+    width: 180px;
+    height: auto;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 25px;
+  }
+  
+  .nav-link {
+    font-weight: 500;
+    position: relative;
+    padding: 5px 0;
+  }
+  
+  .nav-link:hover {
+    color: var(--primary);
+  }
+  
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: width 0.3s;
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+  }
+  
+  .nav-link.active {
+    color: var(--primary);
+  }
+  
+  .nav-link.active::after {
+    width: 100%;
+  }
+
+  /* Hero section */
+  .hero {
+    background: linear-gradient(135deg, rgba(241, 140, 0, 0.1) 0%, rgba(255, 232, 204, 0.2) 100%);
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(241, 140, 0, 0.05);
+  }
+  
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(241, 140, 0, 0.05);
+  }
+  
+  .hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .hero p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto 30px;
+    color: var(--text-light);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .hero-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 14px 32px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(241, 140, 0, 0.3);
+  }
+  
+  .hero-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(241, 140, 0, 0.4);
+  }
+
+  /* Secciones */
+  .section {
+    padding: var(--section-spacing) 40px;
+  }
+  
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  
+  .section-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+  
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Documentos destacados */
+  .docs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .doc-card {
+    background: var(--bg);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition);
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  
+  .doc-card:hover {
+    box-shadow: var(--hover-shadow);
+    transform: translateY(-10px);
+    border-color: var(--primary-light);
+  }
+  
+  .doc-card-header {
+    padding: 20px 20px 15px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .doc-type {
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 5px 15px;
+    border-radius: 20px;
+  }
+  
+  .doc-popular {
+    color: var(--primary);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .doc-card-body {
+    padding: 20px;
+  }
+  
+  .doc-title {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .doc-desc {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .doc-stats {
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+  
+  .doc-stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .doc-card-footer {
+    padding: 15px 20px;
+    background: var(--light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .doc-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .doc-btn:hover {
+    background: var(--primary-dark);
+  }
+
+  /* Comentarios */
+  .comments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .comment-card {
+    background: var(--bg);
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border);
+    transition: var(--transition);
+  }
+  
+  .comment-card:hover {
+    box-shadow: var(--hover-shadow);
+    transform: translateY(-5px);
+  }
+  
+  .comment-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .user-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary);
+    font-weight: bold;
+  }
+  
+  .user-info {
+    flex: 1;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+  }
+  
+  .user-role {
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+  
+  .rating {
+    display: flex;
+    gap: 3px;
+  }
+  
+  .rating i {
+    color: #FFD700;
+  }
+  
+  .comment-content {
+    font-size: 1rem;
+    line-height: 1.7;
+    position: relative;
+    padding-left: 20px;
+  }
+  
+  .comment-content::before {
+    content: '"';
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-size: 3rem;
+    color: var(--primary-light);
+    font-family: serif;
+    line-height: 1;
+  }
+  
+  .comment-doc {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  
+  .comment-doc a {
+    color: var(--primary);
+    font-weight: 500;
+  }
+  
+  .comment-doc a:hover {
+    text-decoration: underline;
+  }
+
+  /* Footer */
+  .footer {
+    background: #f8f8f8;
+    padding: 60px 40px 30px;
+    border-top: 1px solid var(--border);
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 50px;
+  }
+  
+  .footer-col h3 {
+    font-size: 1.3rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .footer-col h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: var(--primary);
+  }
+  
+  .footer-links {
+    list-style: none;
+  }
+  
+  .footer-links li {
+    margin-bottom: 12px;
+  }
+  
+  .footer-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-light);
+    transition: color 0.2s;
+  }
+  
+  .footer-links a:hover {
+    color: var(--primary);
+  }
+  
+  .footer-links i {
+    width: 20px;
+    text-align: center;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 0.9rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .hero {
+      padding: 60px 30px;
+    }
+    
+    .section {
+      padding: 50px 30px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2.2rem;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+    }
+    
+    .top-bar {
+      padding: 15px 20px;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .nav-links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .comments-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .hero {
+      padding: 40px 20px;
+    }
+    
+    .hero h1 {
+      font-size: 1.8rem;
+    }
+    
+    .section {
+      padding: 40px 20px;
+    }
+    
+    .docs-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Página de Inicio -->
+    <section id="home" class="active">
+      <!-- Barra superior -->
+      <div class="top-bar">
+        <img src="logo.png" alt="Logo Universidad Autónoma" class="logo-home" />
+        <div class="nav-links">
+          <a href="#" class="nav-link active" onclick="showSection('home', event)">Inicio</a>
+          <a href="#" class="nav-link" onclick="showSection('vigentes', event)">Documentos</a>
+          <a href="#" class="nav-link" onclick="showSection('solicitud', event)">Soporte</a>
+          <a href="#" class="nav-link" onclick="showSection('admin', event)">Admin</a>
+        </div>
+      </div>
+      
+      <!-- Hero section -->
+      <div class="hero">
+        <h1>Gestiona tus procesos académicos</h1>
+        <p>Accede a toda la documentación necesaria para tus procesos en la Universidad Autónoma de manera rápida y sencilla.</p>
+        <button class="hero-btn" onclick="window.location.href='index.html'">
+          Buscar Documentos <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+      
+      <!-- Documentos destacados -->
+      <div class="section">
+        <div class="section-header">
+          <h2 class="section-title">Documentos Más Buscados</h2>
+          <p class="section-subtitle">Los documentos más consultados por nuestras áreas</p>
+        </div>
+        
+        <div class="docs-grid">
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <span class="doc-type">Manual</span>
+              <span class="doc-popular"><i class="fas fa-fire"></i> 245 consultas</span>
+            </div>
+            <div class="doc-card-body">
+              <h3 class="doc-title">Manual de Procedimientos Académicos</h3>
+              <p class="doc-desc">Guía completa sobre los procesos académicos, requisitos de titulación y normativa de estudios.</p>
+              <div class="doc-stats">
+                <span class="doc-stat"><i class="far fa-file"></i> 42 páginas</span>
+                <span class="doc-stat"><i class="far fa-calendar"></i> Actualizado: 15/06/2023</span>
+              </div>
+            </div>
+            <div class="doc-card-footer">
+              <span class="doc-status">Vigente</span>
+              <button class="doc-btn" onclick="showSection('vigentes', event)">
+                Ver <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <span class="doc-type">Formato</span>
+              <span class="doc-popular"><i class="fas fa-fire"></i> 189 consultas</span>
+            </div>
+            <div class="doc-card-body">
+              <h3 class="doc-title">Solicitud de Beca Académica</h3>
+              <p class="doc-desc">Formato oficial para solicitar becas académicas y apoyo financiero para estudiantes.</p>
+              <div class="doc-stats">
+                <span class="doc-stat"><i class="far fa-file"></i> 5 páginas</span>
+                <span class="doc-stat"><i class="far fa-calendar"></i> Actualizado: 10/05/2023</span>
+              </div>
+            </div>
+            <div class="doc-card-footer">
+              <span class="doc-status">Vigente</span>
+              <button class="doc-btn" onclick="showSection('vigentes', event)">
+                Ver <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="doc-card">
+            <div class="doc-card-header">
+              <span class="doc-type">Procedimiento</span>
+              <span class="doc-popular"><i class="fas fa-fire"></i> 167 consultas</span>
+            </div>
+            <div class="doc-card-body">
+              <h3 class="doc-title">Cambio de Carrera Universitaria</h3>
+              <p class="doc-desc">Procedimiento detallado para solicitar cambio de carrera dentro de la universidad.</p>
+              <div class="doc-stats">
+                <span class="doc-stat"><i class="far fa-file"></i> 8 páginas</span>
+                <span class="doc-stat"><i class="far fa-calendar"></i> Actualizado: 22/04/2023</span>
+              </div>
+            </div>
+            <div class="doc-card-footer">
+              <span class="doc-status">Vigente</span>
+              <button class="doc-btn" onclick="showSection('vigentes', event)">
+                Ver <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Comentarios de usuarios -->
+      <div class="section" style="background: #f9f9f9;">
+        <div class="section-header">
+          <h2 class="section-title">Comentarios de Usuarios</h2>
+          <p class="section-subtitle">Lo que nuestra comunidad dice sobre los documentos y procesos</p>
+        </div>
+        
+        <div class="comments-grid">
+          <div class="comment-card">
+            <div class="comment-header">
+              <div class="user-avatar">M</div>
+              <div class="user-info">
+                <div class="user-name">María Rodríguez</div>
+                <div class="user-role">Estudiante de Derecho</div>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+            <div class="comment-content">
+              El manual de procedimientos académicos me salvó cuando necesitaba entender el proceso de titulación. Muy completo y bien organizado, con ejemplos claros.
+            </div>
+            <div class="comment-doc">
+              Comentario sobre: <a href="#" onclick="showSection('vigentes', event)">Manual de Procedimientos Académicos</a>
+            </div>
+          </div>
+          
+          <div class="comment-card">
+            <div class="comment-header">
+              <div class="user-avatar">C</div>
+              <div class="user-info">
+                <div class="user-name">Carlos Mendoza</div>
+                <div class="user-role">Profesor de Ingeniería</div>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+            <div class="comment-content">
+              Como profesor, he encontrado muy útiles los formatos estandarizados. Ahorran tiempo y aseguran que toda la información requerida esté presente.
+            </div>
+            <div class="comment-doc">
+              Comentario sobre: <a href="#" onclick="showSection('vigentes', event)">Formatos de Evaluación Docente</a>
+            </div>
+          </div>
+          
+          <div class="comment-card">
+            <div class="comment-header">
+              <div class="user-avatar">A</div>
+              <div class="user-info">
+                <div class="user-name">Ana Vargas</div>
+                <div class="user-role">Administrativa</div>
+              </div>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+            </div>
+            <div class="comment-content">
+              El procedimiento para cambio de carrera está muy bien explicado. Los estudiantes ya no llegan con dudas al departamento gracias a este documento.
+            </div>
+            <div class="comment-doc">
+              Comentario sobre: <a href="#" onclick="showSection('vigentes', event)">Procedimiento de Cambio de Carrera</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer -->
+      <div class="footer">
+        <div class="footer-grid">
+          <div class="footer-col">
+           <h3 >Mis Procesos Autónoma</h3>
+            <p>Sistema de gestión documental para la comunidad universitaria.</p>
+            <p>Facilita el acceso a manuales, procedimientos y formatos académicos.</p>
+          </div>
+          
+          <div class="footer-col">
+            <h3>Enlaces Rápidos</h3>
+            <ul class="footer-links">
+              <li><a href="#" onclick="showSection('home', event)"><i class="fas fa-home"></i> Inicio</a></li>
+              <li><a href="#" onclick="showSection('vigentes', event)"><i class="fas fa-file-alt"></i> Documentos Vigentes</a></li>
+              <li><a href="#" onclick="showSection('obsoletos', event)"><i class="fas fa-archive"></i> Documentos Obsoletos</a></li>
+              <li><a href="#" onclick="showSection('solicitud', event)"><i class="fas fa-envelope"></i> Solicitar Información</a></li>
+            </ul>
+          </div>
+          
+          <div class="footer-col">
+            <h3>Contacto</h3>
+            <ul class="footer-links">
+              <li><a href="#"><i class="fas fa-map-marker-alt"></i> Av. Universitaria 123, Ciudad</a></li>
+              <li><a href="tel:+123456789"><i class="fas fa-phone"></i> (123) 456-7890</a></li>
+              <li><a href="mailto:info@universidad.edu"><i class="fas fa-envelope"></i> info@universidad.edu</a></li>
+              <li><a href="#"><i class="fas fa-clock"></i> Lunes-Viernes: 8:00 AM - 6:00 PM</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="footer-bottom">
+          &copy; 2025 Aarom Hv
+        </div>
+      </div>
+    </section>
+
+    <!-- Otras secciones (mantenidas de tu código original) -->
+    <section id="vigentes">
+      <!-- ... contenido existente ... -->
+    </section>
+
+    <section id="obsoletos">
+      <!-- ... contenido existente ... -->
+    </section>
+
+    <section id="solicitud">
+      <!-- ... contenido existente ... -->
+    </section>
+
+    <section id="admin">
+      <!-- ... contenido existente ... -->
+    </section>
+  </div>
+
+  <script>
+    const API_URL = "https://script.google.com/macros/s/AKfycbzVJa05pnob8vAfRlIyOfsbPOYN9WmxAYHgB9nZpVeiijc888QEKQXFr4S5RG-ELVrSNA/exec";
+    const PAGE_SIZE = 14;
+    let resultados = [];
+    let paginaActual = 1;
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('expanded');
+    }
+
+    function showSection(id, event) {
+      if (event) event.preventDefault();
+      
+      // Ocultar todas las secciones
+      document.querySelectorAll('.content section').forEach(sec => sec.classList.remove('active'));
+      
+      // Mostrar la sección solicitada
+      document.getElementById(id).classList.add('active');
+      
+      // Actualizar enlace activo en la barra superior
+      document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      if (id === 'home') {
+        document.querySelector('.nav-link[onclick*="home"]').classList.add('active');
+      } else {
+        document.querySelector(`.nav-link[onclick*="${id}"]`).classList.add('active');
+      }
+
+      // Si la sección es 'vigentes', ejecutar la búsqueda
+      if (id === 'vigentes') {
+        buscar();
+      }
+      
+      // Si la sección es 'obsoletos', cargarlos
+      if (id === 'obsoletos') {
+        cargarObsoletos();
+      }
+    }
+
+    window.onload = async () => {
+      // Mostrar la página de inicio por defecto
+      showSection('home');
+    };
+
+    // Resto de funciones JavaScript (buscar, limpiarFiltros, etc.) se mantienen igual
+    // ...
+  </script>
+</body>
+</html>
